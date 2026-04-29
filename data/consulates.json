@@ -1,0 +1,80 @@
+{
+  "san_francisco": {
+    "states": [
+      "CA-N",
+      "CA-Central",
+      "CO",
+      "HI",
+      "UT",
+      "WY",
+      "GU"
+    ],
+    "vfs_url": "https://visa.vfsglobal.com/usa/en/ind",
+    "cgi_url": "https://www.cgisf.gov.in"
+  },
+  "new_york": {
+    "states": [
+      "NY",
+      "NJ",
+      "CT",
+      "PA",
+      "ME",
+      "VT",
+      "NH",
+      "MA",
+      "RI"
+    ],
+    "vfs_url": "https://visa.vfsglobal.com/usa/en/ind",
+    "cgi_url": "https://www.indiainnewyork.gov.in"
+  },
+  "chicago": {
+    "states": [
+      "IL",
+      "IN",
+      "IA",
+      "MI",
+      "MN",
+      "MO",
+      "ND",
+      "NE",
+      "SD",
+      "WI"
+    ],
+    "cgi_url": "https://www.cgichicago.gov.in"
+  },
+  "houston": {
+    "states": [
+      "TX",
+      "AR",
+      "KS",
+      "LA",
+      "OK",
+      "NM"
+    ],
+    "cgi_url": "https://www.cgihouston.gov.in"
+  },
+  "atlanta": {
+    "states": [
+      "AL",
+      "FL",
+      "GA",
+      "MS",
+      "PR",
+      "SC",
+      "TN"
+    ],
+    "cgi_url": "https://www.cgialanta.gov.in"
+  },
+  "washington_dc": {
+    "states": [
+      "DC",
+      "DE",
+      "KY",
+      "MD",
+      "NC",
+      "VA",
+      "WV"
+    ],
+    "cgi_url": "https://www.indianembassyusa.gov.in"
+  }
+}

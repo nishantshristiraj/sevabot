@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SevaBot KG",
+  "type": "object",
+  "required": [
+    "metadata",
+    "jurisdiction",
+    "fees_usd",
+    "processing_times"
+  ],
+  "properties": {
+    "metadata": {
+      "type": "object"
+    },
+    "jurisdiction": {
+      "type": "object"
+    },
+    "fees_usd": {
+      "type": "object"
+    }
+  }
+}

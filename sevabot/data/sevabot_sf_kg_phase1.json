@@ -1,0 +1,131 @@
+{
+  "metadata": {
+    "consulate": "Consulate General of India, San Francisco",
+    "last_verified": "2026-04-29",
+    "sources": [
+      "https://www.cgisf.gov.in/page/general-passport-information/",
+      "https://www.cgisf.gov.in/page/tatkaal-passport-services/",
+      "https://www.cgisf.gov.in/page/faq-s-on-passport/",
+      "https://services.vfsglobal.com/one-pager/india/united-states-of-america/passport-services/"
+    ]
+  },
+  "jurisdiction": {
+    "states_territories": [
+      "California (Northern & Central)",
+      "Colorado",
+      "Hawaii",
+      "Utah",
+      "Wyoming",
+      "Guam"
+    ],
+    "vfs_center": {
+      "name": "VFS Global San Francisco",
+      "address": "642 Harrison Street, Suite 200, San Francisco, CA 94107",
+      "helpline": "+1-800-320-9625",
+      "hours": "Monday-Friday 09:00-15:30 submission; Helpline 08:00-20:00 PT"
+    }
+  },
+  "fees_usd": {
+    "regular": {
+      "adult_10yr_36pg": {
+        "govt": 75.0,
+        "vfs": 19.0,
+        "icwf": 2.0,
+        "total": 96.0
+      },
+      "adult_10yr_60pg": {
+        "govt": 100.0,
+        "vfs": 19.0,
+        "icwf": 2.0,
+        "total": 121.0
+      },
+      "minor_under15_5yr": {
+        "govt": 50.0,
+        "vfs": 19.0,
+        "icwf": 2.0,
+        "total": 71.0
+      },
+      "minor_15to18_10yr": {
+        "govt": 75.0,
+        "vfs": 19.0,
+        "icwf": 2.0,
+        "total": 96.0
+      }
+    },
+    "tatkal": {
+      "adult_10yr_36pg": {
+        "govt": 75.0,
+        "tatkal_fee": 150.0,
+        "vfs": 19.0,
+        "icwf": 2.0,
+        "total": 246.0
+      },
+      "adult_10yr_60pg": {
+        "govt": 100.0,
+        "tatkal_fee": 150.0,
+        "vfs": 19.0,
+        "icwf": 2.0,
+        "total": 271.0
+      }
+    },
+    "payment_notes": "3.75% convenience fee for card; money order payable to 'VFS Services (USA) Inc'"
+  },
+  "processing_times": {
+    "source_cgisf": {
+      "tatkal": "5 working days from receipt at Consulate",
+      "normal": "30 working days from receipt at Consulate"
+    },
+    "source_faq": {
+      "normal": "3 weeks",
+      "pvr_pending": "30 days or more"
+    },
+    "note": "All times subject to clear Police Verification Report (PVR)"
+  },
+  "tatkal_eligibility": {
+    "eligible_if": [
+      "Valid Indian passport",
+      "Valid US visa status (H1B, F1, Green Card, I-797, etc.)",
+      "Residing in SF jurisdiction"
+    ],
+    "not_eligible": [
+      "Lost / Stolen / Damaged beyond recognition",
+      "Renewal of Short Validity Passport (SVP)",
+      "Major Change in Name",
+      "Change in Sex",
+      "Change of Appearance",
+      "Change/Correction of Date of Birth",
+      "Change/Correction of Place of Birth",
+      "Change in Signature",
+      "Change of Father/Mother name"
+    ]
+  },
+  "application_steps": [
+    "1. Read VFS step-by-step guide at visa.vfsglobal.com/usa/en/ind/apply-passport",
+    "2. Fill online form on embassy.passportindia.gov.in, note ARN",
+    "3. Complete VFS application using ARN, pay fees",
+    "4. Print both applications and checklist",
+    "5. Gather documents per checklist",
+    "6. Submit physical packet by mail or walk-in to 642 Harrison St Suite 200"
+  ],
+  "document_checklist_adult_renewal": {
+    "mandatory": [
+      "Printed online application (Govt + VFS)",
+      "Current original Indian passport",
+      "Copy of US legal status (visa page, Green Card, EAD, I-797)",
+      "Proof of US address (Driver license, state ID, utility bill <3 months, lease, or university letter)",
+      "Annexure E (self-declaration)",
+      "2x2 inch (51x51mm) ICAO-compliant photo, white background"
+    ],
+    "conditional": [
+      "Marriage certificate (for spouse name endorsement)",
+      "Annexure D (not required for adult, for reference)",
+      "Annexure F (for lost/damaged cases)"
+    ]
+  },
+  "special_rules": {
+    "students": "Can apply up to 2 years before expiry (others 1 year)",
+    "minors": "Validity 5 years or till 18; ages 15-18 may opt for 10 years",
+    "lost_passport": "Cannot use Tatkal; requires police report",
+    "address_for_pvr": "Must provide Indian address with police station, district, PIN for verification"
+  }
+}
