@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>SevaBot — Indian Consular Services Demo</title>
+<style>
+:root{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --ink:#0f172a;
+  --muted:#64748b;
+  --line:#e2e8f0;
+  --indigo:#4f46e5;
+  --indigo-50:#eef2ff;
+  --indigo-100:#e0e7ff;
+  --green:#16a34a;
+  --amber:#f59e0b;
+  --shadow:0 10px 30px rgba(2,6,23,.08);
+  --radius:16px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Inter,Helvetica,Arial,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font-family:inherit}
+.container{max-width:1150px;margin:0 auto;padding:0 20px}
+
+/* Header */
+header{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.8);backdrop-filter:saturate(180%) blur(12px);border-bottom:1px solid var(--line)}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:12px;font-weight:700;font-size:18px}
+.brand-badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--indigo),#7c3aed);display:grid;place-items:center;color:white;font-weight:800;box-shadow:0 6px 16px rgba(79,70,229,.35)}
+.tabs{display:flex;gap:8px;background:#f1f5f9;padding:6px;border-radius:12px}
+.tab{border:0;background:transparent;padding:10px 14px;border-radius:8px;font-weight:600;font-size:14px;color:var(--muted);cursor:pointer;transition:.2s}
+.tab.active{background:white;color:var(--indigo);box-shadow:0 1px 2px rgba(0,0,0,.06)}
+.tab:hover{color:var(--ink)}
+
+/* Hero */
+.hero{padding:56px 0 24px}
+.hero-wrap{display:grid;gap:16px;justify-items:start}
+.badge{display:inline-flex;align-items:center;gap:8px;background:var(--indigo-50);color:var(--indigo);padding:6px 12px;border-radius:999px;font-weight:700;font-size:12px;letter-spacing:.3px;text-transform:uppercase}
+.hero h1{margin:0;font-size:44px;line-height:1.05;letter-spacing:-.02em}
+.hero p{margin:0;color:var(--muted);font-size:18px;max-width:720px}
+
+/* Info box */
+.info{background:linear-gradient(180deg,#fff, #fbfdff);border:1px solid var(--line);border-radius:var(--radius);padding:20px 22px;box-shadow:var(--shadow)}
+.info h3{margin:0 0 12px;font-size:16px}
+.info ul{margin:0;padding-left:18px;display:grid;gap:8px}
+.info li{color:#334155}
+.info li strong{color:var(--ink)}
+.info li.active{color:var(--indigo);font-weight:600}
+
+/* Steps */
+.steps{padding:32px 0}
+.section-title{font-size:20px;margin:0 0 16px}
+.steps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;box-shadow:var(--shadow)}
+.step-num{width:28px;height:28px;border-radius:999px;background:var(--indigo-100);color:var(--indigo);display:grid;place-items:center;font-weight:700;font-size:13px;margin-bottom:10px}
+.step h4{margin:0 0 6px;font-size:16px}
+.step p{margin:0;color:var(--muted);font-size:14px}
+
+/* Main grid */
+.main-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:24px;padding:8px 0 80px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+.card-head{padding:18px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.card-head h3{margin:0;font-size:18px}
+.meta{display:flex;gap:10px;flex-wrap:wrap}
+.pill{background:#f1f5f9;color:#334155;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600}
+.pill.indigo{background:var(--indigo-50);color:var(--indigo)}
+.card-body{padding:20px}
+.docs{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.docs li{display:flex;gap:10px;align-items:flex-start;background:#f8fafc;border:1px dashed var(--line);padding:10px 12px;border-radius:12px;font-size:14px}
+.docs li svg{flex:0 0 18px;margin-top:2px;color:var(--indigo)}
+.pdf-preview{margin-top:16px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#0f172a;color:white}
+.pdf-top{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;background:#111827;font-size:12px;color:#cbd5e1}
+.pdf-body{padding:18px;background:linear-gradient(180deg,#1e293b,#0f172a);min-height:140px;display:grid;place-items:center;text-align:center}
+.pdf-body .file{width:56px;height:70px;border-radius:6px;background:white;color:#0f172a;display:grid;place-items:center;font-weight:800;margin:0 auto 10px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+.pdf-body small{color:#94a3b8}
+
+/* Toggle for phase 3 */
+.toggle{display:flex;background:#f1f5f9;padding:4px;border-radius:999px;gap:4px}
+.toggle button{border:0;background:transparent;padding:8px 14px;border-radius:999px;font-weight:600;font-size:13px;color:var(--muted);cursor:pointer}
+.toggle button.active{background:white;color:var(--indigo);box-shadow:0 1px 2px rgba(0,0,0,.08)}
+
+/* WhatsApp Simulator */
+.wa{display:flex;flex-direction:column;height:680px;background:#e5ddd5;position:relative}
+.wa-header{height:64px;flex:0 0 64px;background:#075e54;color:white;display:flex;align-items:center;gap:12px;padding:0 14px}
+.wa-avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#25d366,#128c7e);display:grid;place-items:center;font-weight:800}
+.wa-title{line-height:1.1}
+.wa-title strong{display:block;font-size:15px}
+.wa-title span{font-size:12px;opacity:.85}
+.wa-chat{flex:1 1 auto;overflow:auto;padding:18px 14px;display:flex;flex-direction:column;gap:10px;background-image:radial-gradient(rgba(0,0,0,.04) 1px, transparent 1px);background-size:16px 16px}
+.msg{max-width:78%;padding:10px 12px;border-radius:12px;position:relative;font-size:14px;box-shadow:0 1px .5px rgba(0,0,0,.08)}
+.msg.bot{align-self:flex-start;background:white;border-top-left-radius:4px}
+.msg.user{align-self:flex-end;background:#dcf8c6;border-top-right-radius:4px}
+.msg .time{display:block;margin-top:4px;font-size:11px;color:#667781;text-align:right}
+.quick{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.quick button{border:1px solid var(--indigo);background:white;color:var(--indigo);padding:8px 12px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
+.quick button:hover{background:var(--indigo);color:white}
+.typing{display:inline-flex;gap:4px;padding:10px 12px;background:white;border-radius:12px;width:fit-content}
+.typing span{width:6px;height:6px;background:#94a3b8;border-radius:50%;animation:bounce 1.2s infinite}
+.typing span:nth-child(2){animation-delay:.15s}
+.typing span:nth-child(3){animation-delay:.3s}
+@keyframes bounce{0%,80%,100%{transform:translateY(0);opacity:.5}40%{transform:translateY(-4px);opacity:1}}
+.wa-input{height:60px;flex:0 0 60px;background:#f0f0f0;border-top:1px solid rgba(0,0,0,.08);display:flex;align-items:center;gap:10px;padding:0 12px}
+.wa-input .field{flex:1;background:white;border-radius:999px;padding:10px 14px;color:#94a3b8;font-size:14px;border:1px solid var(--line)}
+.wa-input .send{width:40px;height:40px;border-radius:50%;background:#075e54;color:white;display:grid;place-items:center}
+
+/* Empty state */
+.empty{border:2px dashed var(--line);border-radius:12px;padding:24px;text-align:center;color:var(--muted);background:#f8fafc}
+
+/* Footer note */
+.note{font-size:12px;color:var(--muted);margin-top:8px}
+
+/* Responsive */
+@media (max-width: 980px){
+  .main-grid{grid-template-columns:1fr}
+  .steps-grid{grid-template-columns:1fr}
+  .hero h1{font-size:36px}
+  .tabs{display:none}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <div class="brand-badge">S</div>
+      SevaBot
+    </div>
+    <div class="tabs" id="phaseTabs">
+      <button class="tab active" data-phase="1">Phase 1 • Passport Renewal</button>
+      <button class="tab" data-phase="2">Phase 2 • OCI</button>
+      <button class="tab" data-phase="3">Phase 3 • Renunciation / Surrender</button>
+    </div>
+  </div>
+</header>
+
+<main class="container">
+  <section class="hero">
+    <div class="hero-wrap">
+      <span class="badge" id="heroBadge">Phase 1</span>
+      <h1 id="heroTitle">Renew Indian Passport</h1>
+      <p id="heroSubtitle">Adults & Minors • Normal & Tatkaal • VFS Checklist, Fees & Timeline</p>
+    </div>
+  </section>
+
+  <section class="info" id="phaseInfo">
+    <h3>What this phase covers</h3>
+    <ul>
+      <li data-phase="1"><strong>Phase 1:</strong> Renew Indian passport for Adults and Minors, Normal or Tatkaal</li>
+      <li data-phase="2"><strong>Phase 2:</strong> New OCI application for Adults, Minors born in USA, Minors born in India</li>
+      <li data-phase="3"><strong>Phase 3:</strong> Surrender Indian passport after naturalization, and Renunciation of Indian citizenship</li>
+    </ul>
+  </section>
+
+  <section class="steps">
+    <h3 class="section-title">How it works</h3>
+    <div class="steps-grid" id="stepsGrid">
+      <!-- populated -->
+    </div>
+  </section>
+
+  <section class="main-grid">
+    <!-- LEFT CHECKLIST -->
+    <div class="card" id="checklistCard">
+      <div class="card-head">
+        <h3 id="checklistTitle">Select options in chat →</h3>
+        <div class="meta" id="checklistMeta"></div>
+      </div>
+      <div class="card-body">
+        <div id="phase3ToggleWrap" style="display:none;margin-bottom:14px">
+          <div class="toggle" id="phase3Toggle">
+            <button data-path="surrender" class="active">Surrender</button>
+            <button data-path="renunciation">Renunciation</button>
+          </div>
+        </div>
+
+        <div id="checklistEmpty" class="empty">
+          Your personalized checklist will appear here once you answer a few questions in the WhatsApp simulator.
+        </div>
+
+        <div id="checklistContent" style="display:none">
+          <ul class="docs" id="docsList"></ul>
+          <div class="pdf-preview">
+            <div class="pdf-top">
+              <span>PDF Preview</span>
+              <span id="pdfName">checklist.pdf</span>
+            </div>
+            <div class="pdf-body">
+              <div>
+                <div class="file">PDF</div>
+                <strong id="pdfTitle">Personalized Checklist</strong><br />
+                <small>Ready to download • VFS compliant</small>
+              </div>
+            </div>
+          <p class="note">Fees are indicative and exclude VFS service charges. Processing times vary by consulate.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT WHATSAPP -->
+    <div class="card wa" id="wa">
+      <div class="wa-header">
+        <div class="wa-avatar">SB</div>
+        <div class="wa-title">
+          <strong>SevaBot</strong>
+          <span>online</span>
+        </div>
+      </div>
+      <div class="wa-chat" id="chat"></div>
+      <div class="wa-input">
+        <div class="field">Type a message…</div>
+        <div class="send">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M22 2L11 13" stroke="white" stroke-width="2" stroke-linecap="round"/><path d="M22 2L15 22l-4-9-9-4 20-7z" fill="white"/></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+const PHASES = {
+  1: {
+    badge: "Phase 1",
+    title: "Renew Indian Passport",
+    subtitle: "Adults & Minors • Normal & Tatkaal • VFS Checklist, Fees & Timeline",
+    steps: [
+      {n:1,t:"Answer 2 questions",d:"Adult or Minor, Normal or Tatkaal"},
+      {n:2,t:"Get personalized checklist",d:"Exact documents, forms & photo specs"},
+      {n:3,t:"Download & apply",d:"Prefilled PDFs + VFS appointment guide"}
+    ]
+  },
+  2: {
+    badge: "Phase 2",
+    title: "New OCI Application",
+    subtitle: "Adults & Minors • Born in USA or India • Document bundles",
+    steps: [
+      {n:1,t:"Tell us applicant type",d:"Adult or Minor, and place of birth"},
+      {n:2,t:"Get OCI checklist",d:"Proofs, affidavits & photo requirements"},
+      {n:3,t:"Track & submit",d:"Form links, fee breakup & sample uploads"}
+    ]
+  },
+  3: {
+    badge: "Phase 3",
+    title: "Surrender & Renunciation",
+    subtitle: "After US naturalization • Certificate path • Required documents",
+    steps: [
+      {n:1,t:"Do you have Surrender Certificate?",d:"Yes → Renunciation, No → Surrender"},
+      {n:2,t:"Get step-specific checklist",d:"Forms, fees, affidavits & shipping"},
+      {n:3,t:"Complete process",d:"VFS categories, timelines & tracking"}
+    ]
+  }
+};
+
+const CHECKLISTS = {
+  "1": {
+    "adult-normal": {
+      title:"Adult Passport Renewal – Normal",
+      fee:"$95 + VFS", time:"4–6 weeks", type:"Normal",
+      docs:[
+        "Current original Indian passport + copy",
+        "Online application form + VFS checklist",
+        "US address proof (Driver License / Utility bill)",
+        "2 photos 2x2 inch white background",
+        "Notarized self-swear affidavit",
+        "Fee payment + shipping label"
+      ]
+    },
+    "adult-tatkaal": {
+      title:"Adult Passport Renewal – Tatkaal",
+      fee:"$195 + VFS", time:"1–2 weeks", type:"Tatkaal",
+      docs:[
+        "All Normal documents",
+        "Tatkaal affidavit + urgency proof",
+        "Additional Tatkaal fee",
+        "Priority shipping both ways"
+      ]
+    },
+    "minor-normal": {
+      title:"Minor Passport Renewal – Normal",
+      fee:"$75 + VFS", time:"4–6 weeks", type:"Normal",
+      docs:[
+        "Minor's current passport + copy",
+        "Both parents' passports + copies",
+        "Birth certificate showing parents names",
+        "Annexure D signed by both parents",
+        "Minor photos 2x2 inch",
+        "Address proof of parents"
+      ]
+    },
+    "minor-tatkaal": {
+      title:"Minor Passport Renewal – Tatkaal",
+      fee:"$175 + VFS", time:"1–2 weeks", type:"Tatkaal",
+      docs:[
+        "All Minor Normal documents",
+        "Tatkaal affidavit by parents",
+        "Urgency proof",
+        "Additional fee"
+      ]
+    }
+  },
+  "2": {
+    "adult": {
+      title:"OCI – Adult Applicant",
+      fee:"$275 + VFS", time:"8–10 weeks", type:"New OCI",
+      docs:[
+        "Current US passport + copy",
+        "Surrender Certificate / Renunciation Certificate",
+        "Indian passport copy (last held)",
+        "Proof of Indian origin",
+        "Address proof & photos",
+        "OCI application form + declaration"
+      ]
+    },
+    "minor-usa": {
+      title:"OCI – Minor Born in USA",
+      fee:"$275 + VFS", time:"8–10 weeks", type:"New OCI",
+      docs:[
+        "Child US passport + birth certificate",
+        "Parents' passports + OCI/visa status",
+        "Marriage certificate of parents",
+        "Indian origin proof of parents",
+        "Parental authorization form",
+        "Photos as per spec"
+      ]
+    },
+    "minor-india": {
+      title:"OCI – Minor Born in India",
+      fee:"$275 + VFS", time:"8–10 weeks", type:"New OCI",
+      docs:[
+        "Child US passport + Indian passport copy",
+        "Surrender certificate of child",
+        "Parents' passports + proof of address",
+        "Birth certificate",
+        "Affidavit/Parental authorization",
+        "Photos"
+      ]
+    }
+  },
+  "3": {
+    "surrender": {
+      title:"Surrender of Indian Passport",
+      fee:"$25 + VFS", time:"2–3 weeks", type:"Surrender",
+      docs:[
+        "Original Indian passport for cancellation",
+        "US Naturalization certificate + copy",
+        "Online surrender form + VFS checklist",
+        "Address proof & photos",
+        "Fee payment + shipping"
+      ]
+    },
+    "renunciation": {
+      title:"Renunciation of Indian Citizenship",
+      fee:"$175 + VFS", time:"4–6 weeks", type:"Renunciation",
+      docs:[
+        "Surrender Certificate (mandatory)",
+        "US passport copy",
+        "Renunciation form + declaration",
+        "Address proof & photos",
+        "Fee payment + shipping"
+      ]
+    }
+  }
+};
+
+let currentPhase = "1";
+let chatState = {};
+
+const chatEl = document.getElementById('chat');
+const heroBadge = document.getElementById('heroBadge');
+const heroTitle = document.getElementById('heroTitle');
+const heroSubtitle = document.getElementById('heroSubtitle');
+const stepsGrid = document.getElementById('stepsGrid');
+const checklistTitle = document.getElementById('checklistTitle');
+const checklistMeta = document.getElementById('checklistMeta');
+const docsList = document.getElementById('docsList');
+const checklistEmpty = document.getElementById('checklistEmpty');
+const checklistContent = document.getElementById('checklistContent');
+const pdfName = document.getElementById('pdfName');
+const pdfTitle = document.getElementById('pdfTitle');
+const phase3ToggleWrap = document.getElementById('phase3ToggleWrap');
+const phase3Toggle = document.getElementById('phase3Toggle');
+const phaseInfo = document.getElementById('phaseInfo');
+
+function fmtTime(){ return new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'}); }
+
+function scrollChat(){ chatEl.scrollTop = chatEl.scrollHeight; }
+
+function addBot(text, options=[]){
+  const wrap = document.createElement('div');
+  wrap.className = 'msg bot';
+  wrap.innerHTML = `${text}<span class="time">${fmtTime()}</span>`;
+  chatEl.appendChild(wrap);
+  if(options.length){
+    const q = document.createElement('div');
+    q.className='quick';
+    options.forEach(o=>{
+      const b=document.createElement('button');
+      b.textContent=o.label;
+      b.onclick=()=>{ addUser(o.label); handleOption(o.value); q.remove(); };
+      q.appendChild(b);
+    });
+    wrap.appendChild(q);
+  }
+  scrollChat();
+}
+
+function addUser(text){
+  const m=document.createElement('div');
+  m.className='msg user';
+  m.innerHTML = `${text}<span class="time">${fmtTime()}</span>`;
+  chatEl.appendChild(m);
+  scrollChat();
+}
+
+function typing(){
+  const t=document.createElement('div');
+  t.className='typing';
+  t.innerHTML='<span></span><span></span>';
+  chatEl.appendChild(t);
+  scrollChat();
+  return t;
+}
+
+function botSay(text, options=[], delay=700){
+  const t=typing();
+  setTimeout(()=>{
+    t.remove();
+    addBot(text, options);
+  }, delay);
+}
+
+function renderPhase(){
+  const p=PHASES[currentPhase];
+  heroBadge.textContent=p.badge;
+  heroTitle.textContent=p.title;
+  heroSubtitle.textContent=p.subtitle;
+  stepsGrid.innerHTML = p.steps.map(s=>`
+    <div class="step">
+      <div class="step-num">${s.n}</div>
+      <h4>${s.t}</h4>
+      <p>${s.d}</p>
+    </div>
+  `).join('');
+  // highlight info list
+  phaseInfo.querySelectorAll('li').forEach(li=>{
+    li.classList.toggle('active', li.dataset.phase===currentPhase);
+  });
+  // reset checklist
+  checklistEmpty.style.display='block';
+  checklistContent.style.display='none';
+  checklistTitle.textContent='Select options in chat →';
+  checklistMeta.innerHTML='';
+  phase3ToggleWrap.style.display = currentPhase==='3' ? 'block' : 'none';
+  // reset chat
+  chatEl.innerHTML='';
+  chatState={};
+  // start flow
+  startFlow();
+  // tabs active
+  document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active', b.dataset.phase===currentPhase));
+}
+
+function startFlow(){
+  if(currentPhase==='1'){
+    botSay('Namaste! I can help you renew your Indian passport. Is the applicant an Adult or Minor?', [
+      {label:'Adult', value:'adult'},
+      {label:'Minor', value:'minor'}
+    ]);
+  }else if(currentPhase==='2'){
+    botSay('Hi! Let’s start your OCI application. Is the applicant an Adult or Minor?', [
+      {label:'Adult', value:'adult'},
+      {label:'Minor', value:'minor'}
+    ]);
+  }else{
+    botSay('After US naturalization, you need to Surrender your Indian passport first. Do you already have a Surrender Certificate?', [
+      {label:'Yes, I have it', value:'yes_sc'},
+      {label:'No, not yet', value:'no_sc'}
+    ]);
+  }
+}
+
+function handleOption(val){
+  if(currentPhase==='1'){
+    if(!chatState.age){
+      chatState.age=val; // adult/minor
+      botSay('Got it. Do you need Normal processing or Tatkaal (urgent)?', [
+        {label:'Normal', value:'normal'},
+        {label:'Tatkaal', value:'tatkaal'}
+      ]);
+    }else if(!chatState.speed){
+      chatState.speed=val;
+      const key=`${chatState.age}-${chatState.speed}`;
+      showChecklist(key);
+      botSay(`Perfect. I've prepared your personalized ${chatState.age} ${chatState.speed} checklist. You can see it on the left with fees, timeline and documents. Want to restart?`, [
+        {label:'Start over', value:'restart'}
+      ]);
+    }else if(val==='restart'){
+      chatState={}; startFlow();
+    }
+  }else if(currentPhase==='2'){
+    if(!chatState.age){
+      chatState.age=val;
+      if(val==='adult'){
+        showChecklist('adult');
+        botSay('Here’s your OCI checklist for Adult. All required proofs are listed on the left.', [
+          {label:'Start over', value:'restart'}
+        ]);
+      }else{
+        botSay('Was the minor born in USA?', [
+          {label:'Born in USA', value:'usa'},
+          {label:'Born in India', value:'india'}
+        ]);
+      }
+    }else if(chatState.age==='minor' && !chatState.birth){
+      chatState.birth=val;
+      const key = val==='usa' ? 'minor-usa' : 'minor-india';
+      showChecklist(key);
+      botSay('Done! Checklist updated for Minor. Check documents on the left.', [
+        {label:'Start over', value:'restart'}
+      ]);
+    }else if(val==='restart'){
+      chatState={}; startFlow();
+    }
+  }else{ // phase3
+    if(!chatState.sc){
+      chatState.sc=val;
+      const path = val==='yes_sc' ? 'renunciation' : 'surrender';
+      setPhase3Toggle(path);
+      showChecklist(path);
+      if(path==='renunciation'){
+        botSay('Great. Since you have Surrender Certificate, next is Renunciation. Checklist is on the left.', [
+          {label:'Start over', value:'restart'}
+        ]);
+      }else{
+        botSay('No problem. Start with Surrender. Checklist is on the left.', [
+          {label:'Start over', value:'restart'}
+        ]);
+      }
+    }else if(val==='restart'){
+      chatState={}; startFlow();
+    }
+  }
+}
+
+function showChecklist(key){
+  const data = CHECKLISTS[currentPhase][key];
+  if(!data) return;
+  checklistEmpty.style.display='none';
+  checklistContent.style.display='block';
+  checklistTitle.textContent=data.title;
+  checklistMeta.innerHTML=`
+    <span class="pill indigo">Fee: ${data.fee}</span>
+    <span class="pill">Time: ${data.time}</span>
+    <span class="pill">Type: ${data.type}</span>
+  `;
+  docsList.innerHTML = data.docs.map(d=>`
+    <li>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M20 6L9 17l-5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      ${d}
+    </li>
+  `).join('');
+  pdfName.textContent = key.replace('-','_') + '_checklist.pdf';
+  pdfTitle.textContent = data.title;
+}
+
+function setPhase3Toggle(path){
+  phase3Toggle.querySelectorAll('button').forEach(b=>{
+    b.classList.toggle('active', b.dataset.path===path);
+  });
+}
+
+// Tabs
+document.getElementById('phaseTabs').addEventListener('click', e=>{
+  const btn=e.target.closest('.tab'); if(!btn) return;
+  currentPhase=btn.dataset.phase;
+  renderPhase();
+});
+
+// Phase3 manual toggle
+phase3Toggle.addEventListener('click', e=>{
+  const b=e.target.closest('button'); if(!b) return;
+  const path=b.dataset.path;
+  setPhase3Toggle(path);
+  showChecklist(path);
+  chatState.sc = path==='renunciation' ? 'yes_sc' : 'no_sc';
+});
+
+// Init
+renderPhase();
+</script>
+</body>
+</html>
